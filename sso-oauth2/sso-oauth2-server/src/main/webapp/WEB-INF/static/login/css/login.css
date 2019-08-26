@@ -1,0 +1,181 @@
+.btn-primary.red{
+    background-color: #c10000;
+    border-color: #c10000;
+    letter-spacing: 1px;
+    font-size: 16px;
+}
+.gray-bg{
+    background-color: #eef1f6;
+}
+.middle-box{
+    padding-top: 5px;   
+}
+.form-control, .single-line{
+    background-color: #f5f5f5;
+    border-color: #f5f5f5;
+}
+.m-t-bottom{
+    width: 350px;
+    margin: 0 auto;
+    background-color: #f5f5f5;
+    border-top:1px solid #e0e1e5; 
+    margin-top: -10px;
+    padding: 15px 0;
+    color: #999999;
+}
+.bg-white{
+    background-color: #fff; 
+}
+.loginscreen{
+    margin: 0 auto;
+    padding: 0 20px 95px 20px;
+    width: 350px;
+    -webkit-box-shadow: 6px 6px 10px #e0e3e8;
+    box-shadow: 6px 6px 10px #e0e3e8;
+    font-size: 15px;
+}
+.contact-box {
+    padding: 15px;
+    margin-bottom: 40px;
+}
+.pdmi-logo{
+    width: 126px;
+    height: 36px;
+    background:url(../images/logo.png)  no-repeat;
+    background-size: 100%;
+    display: inline-block;
+    float: left;
+}
+.top-title{
+    font-family: SimHei;
+    font-size: 18px;
+    float: left;
+    line-height: 46px;
+    margin-left: 5px;
+}
+.bottom-row{
+    width: 350px;
+    margin-left: 0;
+    margin-right: 0;
+    margin:  0 auto;
+    margin-top: -45px;
+}
+@media (max-width:640px){
+    .top-title{
+        font-weight: 700;
+        color: #000;
+    }
+    .col-md-offset-3{
+        margin-left: 6%;
+    }
+}
+.checkbox {
+    padding-left: 5px;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 17px;
+}
+.col-xs-4{
+    padding-right: 0;
+}
+
+.input-icon{
+    position: relative;
+    
+}
+
+.input-icon:after{
+    content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.fa{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+.form-control{
+    padding: 6px 0 6px 30px;
+    
+}
+.validate-input{
+    width: 50%;
+    display: inline-block;
+    float: left;
+}
+.validate-img{
+    display: inline-block;
+    float: left;
+    margin-top: 5px;
+}
+.change-code{
+    float: left;
+    line-height: 34px;
+    margin-left: 10px;
+}
+
+/*chrome表单自动填充去掉input黄色背景解决方案*/
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #f5f5f5 inset;
+}
+input, textarea {
+    -webkit-appearance: none;
+}
+
+.switch-phone{
+    position: absolute;
+    right: 5px;
+    top: 0;
+    line-height: 34px;
+}
+
+label.error{
+    font-weight:normal;
+    display: none;
+}
+.btn:focus {
+    outline: none;
+}
+.btn:active {
+    outline: none;
+}
+#verify-error{
+    float: left;
+    width: 100%;
+}
+@media (max-width:320px){    
+    .btn-primary.red,.loginscreen,.top-title{
+        font-size: 13px;
+    }  
+    .validate-input {
+        width: 40%;
+    }
+    .col-md-offset-3{
+        margin-left: 6%;
+    }
+}
+
+
+.authimg{
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 2.6px;
+    width: 20%;
+    margin: 1.5px;
+}
+.authimg img{
+    width: 100%;
+}
+
+.hidden-info{
+    display: none;
+}
+
+.show-info{
+    display: block;
+    color: #ac2925;
+    font-size: 10px;
+}

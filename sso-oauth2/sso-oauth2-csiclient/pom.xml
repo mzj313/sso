@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.mzj</groupId>
+        <artifactId>sso-oauth2</artifactId>
+        <version>1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>sso-oauth2-csiclient</artifactId>
+    <packaging>jar</packaging>
+    <name>csiClient</name>
+    <url>http://maven.apache.org</url>
+
+    <distributionManagement>
+      <repository>
+	<id>pdmi-releases</id>
+	<name>PDMI Releases</name>
+	<url>http://10.100.13.25:9090/nexus/content/repositories/pdmi-releases</url>
+      </repository>
+      <snapshotRepository>
+	<id>pdmi-snapshots</id>
+	<name>PDMI snapshots</name>
+	<url>http://10.100.13.25:9090/nexus/content/repositories/pdmi-snapshots</url>
+      </snapshotRepository>
+    </distributionManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.mzj</groupId>
+            <artifactId>sso-oauth2-key</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+      <plugins>
+        <plugin>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>2.4</version>
+          <configuration>
+            <attach>true</attach>
+          </configuration>
+          <executions>
+            <execution>
+              <phase>compile</phase>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+	  
+	  <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+
+</project>

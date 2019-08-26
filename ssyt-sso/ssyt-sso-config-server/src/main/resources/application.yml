@@ -1,0 +1,14 @@
+#logging:
+#  file: "logs/config-center.log"
+info:
+  name: "配置中心"
+
+server:
+  port: 8888
+  context-path: /config
+
+spring:
+  application:
+    name: config-center
+  profiles:
+    active: native

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration debug="false" xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <!--
+      This default ConsoleAppender is used to logger all NON perf4j messages
+      to System.out
+    -->
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %p [%c.%M &lt;%L&gt;] - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="cas" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="cas.log" />
+        <param name="MaxFileSize" value="512KB" />
+        <param name="MaxBackupIndex" value="3" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %p [%c] - %m%n"/>
+        </layout>
+    </appender>
+
+    <!-- ####################  Perf4J appenders begin #################### -->
+    <!-- AsyncCoalescingStatisticsAppender收集StopWatch的日志信息并传送到下游的文件appenders。 -->
+    <appender name="CoalescingStatistics" class="org.perf4j.log4j.AsyncCoalescingStatisticsAppender">
+        <!-- TimeSlice配置多少时间间隔去做一次汇总写入文件中 默认值是 30000 ms -->
+        <param name="TimeSlice" value="60000"/>
+        <appender-ref ref="fileAppender"/>
+        <appender-ref ref="graphExecutionTimes"/>
+        <appender-ref ref="graphExecutionTPS"/>
+    </appender>
+
+    <!-- 汇总perf4j的日志 -->
+    <appender name="fileAppender" class="org.apache.log4j.FileAppender">
+        <param name="File" value="perfStats.log"/>
+        <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+        <param name="Append" value="true" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="graphExecutionTimes" class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <!-- Possible GraphTypes are Mean, Min, Max, StdDev, Count and TPS -->
+        <param name="GraphType" value="Mean"/>
+        <!-- The tags of the timed execution blocks to graph are specified here -->
+        <param name="TagNamesToGraph" value="DESTROY_TICKET_GRANTING_TICKET,GRANT_SERVICE_TICKET,GRANT_PROXY_GRANTING_TICKET,VALIDATE_SERVICE_TICKET,CREATE_TICKET_GRANTING_TICKET,AUTHENTICATE" />
+    </appender>
+
+    <appender name="graphExecutionTPS" class="org.perf4j.log4j.GraphingStatisticsAppender">
+        <param name="GraphType" value="TPS" />
+        <param name="TagNamesToGraph" value="DESTROY_TICKET_GRANTING_TICKET,GRANT_SERVICE_TICKET,GRANT_PROXY_GRANTING_TICKET,VALIDATE_SERVICE_TICKET,CREATE_TICKET_GRANTING_TICKET,AUTHENTICATE" />
+    </appender>
+
+    <!--
+      The Perf4J logger. Note that org.perf4j.TimingLogger is the value of the
+      org.perf4j.StopWatch.DEFAULT_LOGGER_NAME constant. Also, note that
+      additivity is set to false, which is usually what is desired - this means
+      that timing statements will only be sent to this logger and NOT to
+      upstream loggers.
+    -->
+	<!-- additivity默认true，子Logger会在父Logger（root）的appender里输出；设为false，则子Logger只会在自己的appender里输出。 -->
+    <logger name="org.perf4j.TimingLogger" additivity="false">
+        <level value="INFO" />
+        <appender-ref ref="CoalescingStatistics" />
+    </logger>
+    <!-- ####################  Perf4J appenders end #################### -->
+
+
+    <logger name="org.springframework">
+        <level value="ERROR" />
+    </logger>
+
+    <!-- spring-webflow-2.3.2 -->
+    <logger name="org.springframework.webflow">
+        <level value="ERROR" />
+    </logger>
+    <logger name="org.springframework.webflow.execution.ActionExecutor">
+        <level value="DEBUG" />
+    </logger>
+    <logger name="org.springframework.webflow.action">
+        <level value="DEBUG" />
+    </logger>
+
+    <logger name="org.jasig" additivity="true">
+        <level value="INFO" />
+        <appender-ref ref="cas" />
+    </logger>
+    
+    <!-- cas-server-core-4.0.0 -->
+    <logger name="org.jasig.cas.web.view.CasReloadableMessageBundle" additivity="true">
+        <level value="ERROR" />
+    </logger>
+    <logger name="org.jasig.cas.web.flow" additivity="true">
+        <level value="INFO" />
+    </logger>
+    <logger name="org.jasig.cas.web.flow.AuthenticationViaFormAction" additivity="true">
+        <level value="debug" />
+    </logger>
+    <logger name="org.jasig.cas.web.flow.GenerateLoginTicketAction" additivity="true">
+        <level value="debug" />
+    </logger>
+    <logger name="org.jasig.cas.authentication" additivity="true">
+        <level value="debug" />
+    </logger>
+    <logger name="org.jasig.cas.services.DefaultServicesManagerImpl" additivity="true">
+        <level value="debug" />
+    </logger>
+    <logger name="org.jasig.cas.util.SimpleHttpClient" additivity="true">
+        <level value="debug" />
+    </logger>
+    
+    <!-- cas-server-support-pac4j-4.0.0 -->
+    <logger name="org.jasig.cas.support.pac4j.web.flow.ClientAction" additivity="true">
+        <level value="debug" />
+    </logger>
+    <!-- cas-server-integration-memcached-4.0.0 -->
+    <logger name="org.jasig.cas.ticket.registry" additivity="true">
+        <level value="debug" />
+    </logger>
+
+    <logger name="com.github.inspektr.audit.support.Slf4jLoggingAuditTrailManager">
+        <level value="INFO" />
+        <appender-ref ref="cas" />
+    </logger>
+
+    <!--
+      The root logger sends all logger statements EXCEPT those sent to the perf4j
+      logger to System.out.
+    -->
+    <root>
+        <level value="INFO" />
+        <appender-ref ref="console" />
+    </root>
+</log4j:configuration>

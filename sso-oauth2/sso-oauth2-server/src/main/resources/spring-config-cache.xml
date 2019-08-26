@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       
+    <!-- <context:property-placeholder location="classpath:Jedis_config.properties"/> -->
+    
+    <!-- TODO 要换成redis -->
+    <!-- <bean id="springCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager" ref="ehcacheManager"/>
+    </bean> -->
+
+    <!--ehcache-->
+    <!-- <bean id="ehcacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:ehcache/ehcache.xml"/>
+    </bean> -->
+    
+    
+    
+    <!-- cacheManager -->
+<!--     <bean id="springCacheManager" class="com.chinasofti.oauth2.asserver.redis.RedisCacheManager">
+        <property name="cacheManager" ref="redisManager" />
+        <property name="cacheNames">
+            <set>
+                <value>passwordRetryCache</value>
+                <value>authorizationCache</value>
+                <value>authenticationCache</value>
+                <value>shiro-activeSessionCache</value>
+                <value>code-cache</value>
+            </set>
+        </property>
+    </bean> -->
+    <!-- shiro redisManager
+        optional properties:
+        <property name="timeout" value="10000"/>
+        <property name="password" value="123456"/> -->
+<!--     <bean id="redisManager" class="com.chinasofti.oauth2.asserver.redis.RedisManager">
+        <property name="host" value="${redis.ip}"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="expire" value="1800"/>
+    </bean> -->
+    
+    
+    <!-- 修改 -->
+    <bean id="springCacheManager" class="com.chinasofti.oauth2.asserver.redis.ShiroRedisCacheManager">
+        <property name="cacheClient" ref="redisClientWrapper" />
+        <property name="cacheNames">
+            <set>
+                <value>passwordRetryCache</value>
+                <value>authorizationCache</value>
+                <value>authenticationCache</value>
+                <value>shiro-activeSessionCache</value>
+                <value>code-cache</value>
+            </set>
+        </property>
+    </bean>
+    <bean id="redisClientWrapper" class="com.chinasofti.oauth2.cache.redis.RedisClientWrapper">
+        <property name="expire" value="1800"/>
+        <property name="host" value="${redis.ip}"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="password" value="${redis.auth}"/>
+        <!-- <property name="hosts">
+            <set>
+                <value>localhost:6379</value>
+            </set>
+        </property> -->
+    </bean>
+</beans>

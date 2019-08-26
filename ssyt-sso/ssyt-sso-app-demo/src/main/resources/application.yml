@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: permission-management
+  profiles:
+    active: dev
+  aop:
+    #true表示基于类的代理将起作用（这时需要cglib库）,否则按JDK proxy
+    proxy-target-class: false
+
+---
+
+spring:
+  profiles: dev
+cas:
+  prefixUrl: http://localhost:8443/cas
+  loginUrl: ${cas.prefixUrl}/login
+  serviceUrl: http://apilocalhost:${server.port}
+  callbackUrl: ${cas.serviceUrl}/callback
+jwt:
+  salt: 12345678901234567890123456789012
+debug: true
+server:
+  port: 8082
+  #ssl: 
+   # key-store: classpath:keystore.p12
+    #key-store-password: 801223
+    #keyStoreType: PKCS12
+    #keyAlias: api.33etong.com
+---

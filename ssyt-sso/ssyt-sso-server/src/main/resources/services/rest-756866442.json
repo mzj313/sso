@@ -1,0 +1,8 @@
+{
+  "@class": "org.apereo.cas.services.RegexRegisteredService",
+  "serviceId": "^(http)://apilocalhost.*",
+  "name": "rest",
+  "id": 756866442,
+  "description": "这是一个本地允许的服务，通过rest访问都允许通过",
+  "evaluationOrder": 1
+}

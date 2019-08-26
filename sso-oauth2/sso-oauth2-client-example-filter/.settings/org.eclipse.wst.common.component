@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="sso-oauth2-client-example-filter">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
+        <dependent-module archiveName="sso-oauth2-csiclient-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/sso-oauth2-csiclient/sso-oauth2-csiclient">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="sso-oauth2-key-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/sso-oauth2-key/sso-oauth2-key">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="sso-oauth2-common-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/sso-oauth2-common/sso-oauth2-common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="pup-client"/>
+        <property name="java-output-path" value="/sso-oauth2-client-example-filter/target/classes"/>
+    </wb-module>
+</project-modules>

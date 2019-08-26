@@ -1,0 +1,25 @@
+@charset "utf-8";
+
+/*common start*/
+h2{margin:0;padding:0;font-weight:normal; font-size:14px;}
+
+
+/*demo*/
+.title{height:36px; line-height:36px; background-color:#e8edf7;color:#404e65;padding-left:7px; margin-bottom:10px;}
+.title em{background:url(../../lib/themes/icons/demo_icon.png) 0 0 no-repeat; width:14px;height:12px;display:inline-block;color:#404e65;margin-right:7px;#vertical-align:middle;}
+.date{width:116px; height:36px; float:right; background:url(../../lib/themes/icons/demo_icon.png) 14px -31px no-repeat #18a9fc; padding-left:39px;color:#fff;font-size:12px;}
+.demo_top{ padding-bottom:15px;}
+.tip{display:block; color:#747c8b; padding-left:27px;}
+.red_color{color:#fc6d59;}
+
+
+
+
+
+
+
+
+
+
+
+

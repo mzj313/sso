@@ -1,0 +1,198 @@
+*{
+	margin:0;
+	padding:0;
+}
+ul{
+    list-style: none;
+}
+*:focus {
+    outline: none;
+}
+/* All */
+html { font-size:50px; }
+/* iPhone 4/5 */
+@media (min-width:320px){
+	html { font-size:50px; }
+}
+
+/* Android */
+@media (min-width:360px){
+	html { font-size:56.25px; }
+}
+/* iPhone6 */
+@media (min-width:375px){
+	html { font-size:58.59375px; }
+    .content div.center{
+       padding-top: 20%;
+   }
+}
+/* iPhone6 Plus */
+@media (min-width:414px){
+	html { font-size:64.6875px;}
+    .content div.center{
+       padding-top: 20%;
+   }
+}
+html{
+/*    height: 100%;*/
+}
+body{
+   -webkit-text-size-adjust:none;
+    margin: 0 auto;
+    font-family: 'Microsoft YaHei';
+    overflow: hidden;
+    /* 此处需使用绝对url，例:http://192.168.1.1/XXXX/img/pic.png */
+    background:url(../imgs/pic.jpg) top center no-repeat;
+    background-size:cover;
+}
+.content{
+        
+    position: relative;
+    margin: 0 auto;
+}
+
+.content .center{
+    max-width: 640px;
+    min-width: 320px;
+    margin: 0 auto;
+    position: relative;
+    padding-top: 15%;
+}
+.content .loginarea{
+    background-color: rgba(255,255,255,0.6);
+    width: 80%;
+    margin: 0 auto;
+    padding-bottom: .6rem;
+    
+    -moz-border-radius: .2rem;
+    -webkit-border-radius: .2rem;
+    border-radius: .2rem; /* future proofing */
+    -khtml-border-radius: .2rem; /* for old Konqueror browsers */
+}
+
+.content .loginarea .headImg{
+    margin: .2rem auto 0;
+    text-align: center;
+    width: 5rem;
+    padding: .1rem;
+}
+
+.content .loginarea .headImg>img{
+    width: 100%;
+}
+
+.content .loginarea .inputarea{
+    width: 80%;
+    margin: .4rem auto;
+}
+
+.content .loginarea .inputarea .input{
+    width: 100%;
+    margin: .3rem 0;
+    position: relative;
+    background-color: #fff;
+    line-height: .4rem;
+    
+}
+.content .loginarea .inputarea .input .username,.password,.authcode{
+    width: 75%;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    border-left: solid 1px #cdcdcd;
+    line-height: .2rem;
+    margin: .1rem 0;
+}
+
+.content .loginarea .inputarea .input .authcode{
+    width: 45%;
+}
+.content .loginarea .inputarea .input .authimg{
+    display: inline-block;
+    vertical-align: middle;
+    line-height: .2rem;
+    width: 20%;
+    margin: .1rem;
+}
+.content .loginarea .inputarea .input .authimg img{
+    width: 100%;
+}
+
+.content .loginarea .inputarea .input .icon{
+    width: .31rem;
+    display: inline-block;
+    margin: .1rem;
+    vertical-align: middle;
+    text-align: center;
+    line-height: .2rem;
+    margin-left: .15rem;
+}
+.content .loginarea .inputarea .input .icon img{
+    display: inline-block;
+    vertical-align: middle;
+    width: .31rem;
+}
+.content .loginarea .inputarea .input>div input{
+    display: inline-block;
+    vertical-align: middle;
+    width: 90%;
+    border: 0;
+    margin: .1rem;
+    font-size: .28rem;
+}
+
+.content .loginarea .inputarea *[placeholder]{
+    font-size: .28rem;
+    color: #b0b0b0;
+}
+
+.content .loginarea .loginBtn{
+    width: 80%;
+    margin: 0 auto;
+    height: .7rem;
+    background-color: #18aafb;
+    text-align: center;
+    color: #fff;
+    font-size: .3rem;
+    line-height: .7rem;
+    letter-spacing: .1rem;
+    
+    -moz-border-radius: .05rem;
+    -webkit-border-radius: .05rem;
+    border-radius: .05rem; /* future proofing */
+    -khtml-border-radius: .05rem; /* for old Konqueror browsers */
+}
+
+.content .bot{
+    font-size: .14rem;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: .5rem 0;
+    color: #fff;
+    font-family: "Arial";
+}
+
+@media screen and (min-aspect-ratio: 1/1){
+   .content div.center{
+       padding-top: 5%;
+   }
+}
+
+.content .loginarea .inputarea .info{
+    width: 100%;
+    margin: .3rem 0;
+    position: relative;
+    line-height: .4rem;
+
+}
+
+.hidden-info{
+    display: none;
+}
+
+.show-info{
+    display: block;
+    color: #ac2925;
+    font-size: 10px;
+}

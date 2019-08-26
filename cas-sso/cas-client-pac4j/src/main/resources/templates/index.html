@@ -1,0 +1,17 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<span th:text="${username}"></span>
+<br>
+<br> web客户端：
+<br>
+<a href="/a" title="被保护">aaa</a>
+<br>
+<a href="/b" title="未保护">bbb</a>
+<br>
+<a href="/logout">logout</a>
+<br>
+<br> CAS服务端：
+<br>
+<a href="http://localhost:8280/cas">cas</a>
+<br>
+<a href="http://localhost:8280/cas/logout">cas/logout</a>

@@ -1,0 +1,6 @@
+http://localhost:8280/cas/login
+http://localhost:8280/cas/login?service=http://localhost:8282
+
+
+deployerConfigContext.xml里面primaryAuthenticationHandler
+配置用户admin admin123

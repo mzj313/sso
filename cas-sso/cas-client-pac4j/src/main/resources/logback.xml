@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration monitorInterval="60">
+    <!--在spring-boot.jar包中-->
+    <!--<include resource="org/springframework/boot/logging/logback/base.xml" />-->
+
+    <!-- %m输出的信息,%p日志级别,%t线程名,%d日期,%c类的全名,,,, -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35}.%M - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+    <!--查看shiro的工作原理-->
+    <logger name="org.apache.shiro" level="debug"/>
+    <logger name="org.pac4j.core.engine" level="debug"/>
+
+</configuration>

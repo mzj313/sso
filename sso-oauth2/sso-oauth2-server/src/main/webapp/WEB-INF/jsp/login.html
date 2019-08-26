@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+    <title>用户登录</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache,must-revalidate">
+    <meta http-equiv="expires" content="0">
+
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+<div class="content">
+    <div class="center">
+        <form id="loginForm" action="" method="post">
+            <div class="loginarea">
+                <div class="headImg">
+                    <img src="imgs/logo.png">
+                </div>
+                <div class="inputarea">
+                    <div class="input">
+                        <div class="icon"><img src="imgs/icon01.png"></div>
+                        <div class="username"><input type="text" id="username" name="username" placeholder="用户名" autocomplete="off" disableautocomplete autofocus required></div>
+                    </div>
+                    <div class="input">
+                        <div class="icon"><img src="imgs/icon02.png"></div>
+                        <div class="password"><input type="password" id="password" name="password" placeholder="密码" autocomplete="off" disableautcomplete autofocus required></div>
+                    </div>
+                    <div class="input">
+                        <div class="icon"><img src="imgs/icon03.png"></div>
+                        <div class="authcode"><input type="text" id="captcha" name="captcha" placeholder="验证码" autocomplete="off" disableautcomplete autofocus required></div>
+                        <div class="authimg">
+                            <img id="codeUrl" src="imgs/x.png">
+                        </div>
+                    </div>
+
+                    <div id="error-info" class="hidden-info">
+                    登录失败<br /> <br /> 原因:
+                    </div>
+
+            </div>
+            <div class="loginBtn">授权并登录</div>
+    </div>
+    </form>
+    <div class="bot">2015 © PDMI.Co.Ltd.Brought to you by PDMI.cn</div>
+</div>
+</div>
+</body>
+</html>
