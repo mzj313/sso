@@ -80,7 +80,7 @@
                 <version>9.2.2.v20140723</version>
                 <configuration>
                     <httpConnector>
-                        <port>8282</port>
+                        <port>8283</port>
                     </httpConnector>
                     <webApp>
                         <contextPath>/</contextPath>

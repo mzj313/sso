@@ -10,6 +10,13 @@ import org.springframework.context.annotation.DependsOn;
 
 import io.buji.pac4j.context.ShiroSessionStore;
 
+/**
+ * buji-pac4j 是 Shiro Web 应用程序的一个简单而强大的安全库，shiro-cas的替代方案；
+ *    支持身份验证和授权，还提供了高级功能，如 CSRF 保护；
+ *   基于 Java 8、Shiro 1.4 和 pac4j 安全引擎 v2；
+ * @author Administrator
+ *
+ */
 @Configuration
 @DependsOn("appConfig")
 public class Pac4jConfig {
@@ -49,7 +56,7 @@ public class Pac4jConfig {
 	 */
 	@Bean
 	public CasClient casClient(CasConfiguration casConfig) {
-		CasClient casClient = new CasClient(casConfig);
+		CasClient casClient = new MyCasClient(casConfig);
 		// 客户端回调地址
 		casClient.setCallbackUrl(projectUrl + "/callback?client_name=" + clientName);
 		casClient.setName(clientName);

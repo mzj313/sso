@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.mzj.test</groupId>
-	<artifactId>cas-client-pac4j</artifactId>
+	<artifactId>cas-client</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
-	<name>cas-client-pac4j</name>
+	<name>cas-client</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -29,37 +29,21 @@
 	</dependencyManagement>
 
 	<dependencies>
-		<!-- 支持全栈式Web开发，包括Tomcat和spring-webmvc -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-spring</artifactId>
-			<version>1.4.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.tomcat.embed</groupId>
+					<artifactId>tomcat-embed-websocket</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
-			<groupId>org.pac4j</groupId>
-			<artifactId>pac4j-cas</artifactId>
-			<version>3.6.1</version>
-		</dependency>
-		<dependency>
-			<groupId>io.buji</groupId>
-			<artifactId>buji-pac4j</artifactId>
-			<version>4.1.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
+			<groupId>net.unicon.cas</groupId>
+			<artifactId>cas-client-autoconfig-support</artifactId>
+			<version>2.3.0-GA</version>
 		</dependency>
 
 	</dependencies>
@@ -80,7 +64,7 @@
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.2.2.v20140723</version>
+				<version>9.4.21.v20190926</version>
 				<configuration>
 					<httpConnector>
 						<port>8281</port>

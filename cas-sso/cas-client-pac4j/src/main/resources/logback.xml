@@ -18,5 +18,6 @@
     <!--查看shiro的工作原理-->
     <logger name="org.apache.shiro" level="debug"/>
     <logger name="org.pac4j.core.engine" level="debug"/>
+    <logger name="org.pac4j.cas.redirect.CasRedirectActionBuilder" level="debug"/>
 
 </configuration>

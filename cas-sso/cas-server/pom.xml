@@ -71,6 +71,12 @@
             <artifactId>cas-server-webapp-support</artifactId>
             <version>${cas.version}</version>
             <scope>compile</scope>
+            <exclusions>
+            	<exclusion>
+            		<groupId>org.springframework</groupId>
+            		<artifactId>spring-asm</artifactId>
+            	</exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jasig.cas</groupId>
@@ -92,6 +98,11 @@
         <dependency>
             <groupId>org.jasig.cas</groupId>
             <artifactId>cas-server-support-jdbc</artifactId>
+            <version>${cas.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jasig.cas</groupId>
+            <artifactId>cas-server-support-saml</artifactId>
             <version>${cas.version}</version>
         </dependency>
         <dependency>

@@ -32,6 +32,7 @@
        | interface supports plugging in another implementation, the default PolicyBasedAuthenticationManager should
        | be sufficient in most cases.
        +-->
+	<!-- 身份认证管理器，通过指定认证凭证的认证处理程序来定义认证的安全策略 -->
     <bean id="authenticationManager" class="org.jasig.cas.authentication.PolicyBasedAuthenticationManager">
         <constructor-arg>
             <map>
@@ -41,6 +42,7 @@
                    | If more than one instance of the same handler class is configured, you must explicitly
                    | set its name to something other than its default name (typically the simple class name).
                    -->
+	            <!-- 由AuthenticationHandler认证通过的Credential(凭证) 被PrincipalResolver解析构建Principal(认证结果) -->
                 <entry key-ref="proxyAuthenticationHandler" value-ref="proxyPrincipalResolver" />
                 <entry key-ref="primaryAuthenticationHandler" value-ref="primaryPrincipalResolver" />
                 <!--    oauth2 登录处理     -->
@@ -73,9 +75,10 @@
     <bean id="oauthPrincipalResolver" class="com.github.tanxinzheng.cas.server.authentication.OauthPersonDirectoryPrincipalResolver" />
 
     <!-- Required for proxy ticket mechanism. -->
-    <bean id="proxyAuthenticationHandler"
-          class="org.jasig.cas.authentication.handler.support.HttpBasedServiceCredentialsAuthenticationHandler"
+    <bean id="proxyAuthenticationHandler" class="org.jasig.cas.authentication.handler.support.HttpBasedServiceCredentialsAuthenticationHandler"
           p:httpClient-ref="httpClient" />
+    <!-- Required for proxy ticket mechanism -->
+    <bean id="proxyPrincipalResolver" class="org.jasig.cas.authentication.principal.BasicPrincipalResolver" />
 
     <!--
        | TODO: Replace this component with one suitable for your enviroment.
@@ -98,10 +101,6 @@
             </map>
         </property>
     </bean>
-
-    <!-- Required for proxy ticket mechanism -->
-    <bean id="proxyPrincipalResolver"
-          class="org.jasig.cas.authentication.principal.BasicPrincipalResolver" />
 
     <!--
        | Resolves a principal from a credential using an attribute repository that is configured to resolve

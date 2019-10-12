@@ -50,7 +50,7 @@ public class ActionExecutor {
 			}
 			Event event = action.execute(context);
 			if (logger.isDebugEnabled()) {
-				logger.debug("Finished executing " + getTargetAction(action) + "; result = " + event);
+				logger.debug("Finished Executing " + getTargetAction(action) + "; result = " + event);
 			}
 			return event;
 		} catch (ActionExecutionException e) {

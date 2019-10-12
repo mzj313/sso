@@ -12,7 +12,8 @@ import org.scribe.utils.OAuthEncoder;
  * Created by Jeng on 16/2/21.
  */
 public class WeiXinApi20 extends DefaultApi20 {
-    private static final String WEIXIN_AUTHORIZE_URL = "https://open.weixin.qq.com/connect/qrconnect?appid=%s&redirect_uri=%s&response_type=code&scope=snsapi_login#wechat_redirect";
+	// 报错：对实体 "redirect_uri" 的引用必须以 ';' 分隔符结尾。解决： ; -> $amp;
+    private static final String WEIXIN_AUTHORIZE_URL = "https://open.weixin.qq.com/connect/qrconnect?appid=%s&amp;redirect_uri=%s&amp;response_type=code&amp;scope=snsapi_login#wechat_redirect";
 
     @Override
     public AccessTokenExtractor getAccessTokenExtractor()

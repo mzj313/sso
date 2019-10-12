@@ -2,4 +2,4 @@ https://www.runoob.com/memcached/window-install-memcached.html
 
 call memcached.exe -m 256
 
-é€šè¿‡ä½¿ç”¨ memcached.exe -h æŸ¥çœ‹æ›´å¤šçš„å‚æ•°é…ç½®
+Í¨¹ıÊ¹ÓÃ memcached.exe -h ²é¿´¸ü¶àµÄ²ÎÊıÅäÖÃ

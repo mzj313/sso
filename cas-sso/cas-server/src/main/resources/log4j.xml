@@ -105,13 +105,17 @@
     <logger name="org.jasig.cas.authentication" additivity="true">
         <level value="debug" />
     </logger>
-    <logger name="org.jasig.cas.services.DefaultServicesManagerImpl" additivity="true">
-        <level value="debug" />
-    </logger>
     <logger name="org.jasig.cas.util.SimpleHttpClient" additivity="true">
         <level value="debug" />
     </logger>
+    <logger name="org.jasig.cas.services.DefaultServicesManagerImpl" additivity="true">
+        <level value="error" />
+    </logger>
     
+    <!-- cas-server-webapp-support-4.0.0 -->
+    <logger name="org.jasig.cas.web.support.CookieRetrievingCookieGenerator">
+        <level value="DEBUG" />
+    </logger>
     <!-- cas-server-support-pac4j-4.0.0 -->
     <logger name="org.jasig.cas.support.pac4j.web.flow.ClientAction" additivity="true">
         <level value="debug" />

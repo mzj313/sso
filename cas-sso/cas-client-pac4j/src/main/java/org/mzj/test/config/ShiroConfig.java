@@ -1,5 +1,6 @@
 package org.mzj.test.config;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -7,6 +8,8 @@ import java.util.Map;
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 
+import org.apache.shiro.session.Session;
+import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.session.mgt.eis.MemorySessionDAO;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
@@ -18,6 +21,8 @@ import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.jasig.cas.client.session.SingleSignOutFilter;
 import org.pac4j.core.config.Config;
+import org.pac4j.core.context.J2EContext;
+import org.pac4j.core.engine.SecurityLogic;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -31,13 +36,18 @@ import io.buji.pac4j.filter.LogoutFilter;
 import io.buji.pac4j.filter.SecurityFilter;
 import io.buji.pac4j.subject.Pac4jSubjectFactory;
 
+/**
+ * 
+ * @author Administrator
+ *
+ */
 @Configuration
 @DependsOn("appConfig")
 public class ShiroConfig {
 	private String projectUrl = AppConfig.projectUrl;
 	private String casServerUrl = AppConfig.casServerUrl;
 	private String clientName = AppConfig.clientName;
-
+	
 	@Bean("securityManager")
 	public DefaultWebSecurityManager securityManager(Pac4jSubjectFactory subjectFactory, SessionManager sessionManager,
 			CasRealm casRealm) {
@@ -88,25 +98,27 @@ public class ShiroConfig {
 	 * 
 	 * @param securityManager
 	 * @param config
+	 * @param securityLogic 
 	 * @return
 	 */
 	@Bean("shiroFilter")
-	public ShiroFilterFactoryBean shiroFilter(DefaultWebSecurityManager securityManager, Config config) {
+	public ShiroFilterFactoryBean shiroFilter(DefaultWebSecurityManager securityManager, Config config, SecurityLogic<Object, J2EContext> securityLogic) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 		// 必须设置 SecurityManager
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
 		// shiroFilterFactoryBean.setUnauthorizedUrl("/403");
 		// 添加casFilter到shiroFilter中
-		loadShiroFilterChain(shiroFilterFactoryBean);
+		this.loadShiroFilterChain(shiroFilterFactoryBean);
 		Map<String, Filter> filters = new HashMap<>(3);
 		
-		// cas 资源认证拦截器
+		// cas资源认证拦截器  判断当前用户是否已经认证通过并且校验是否有权限访问此url
 		SecurityFilter securityFilter = new SecurityFilter();
 		securityFilter.setConfig(config);
 		securityFilter.setClients(clientName);
+		securityFilter.setSecurityLogic(securityLogic);
 		filters.put("securityFilter", securityFilter);
 		
-		// cas 认证后回调拦截器
+		// cas认证后回调拦截器  例如CAS的ST校验就是这里完成
 		CallbackFilter callbackFilter = new CallbackFilter();
 		callbackFilter.setConfig(config);
 		callbackFilter.setDefaultUrl(projectUrl);
@@ -122,6 +134,13 @@ public class ShiroConfig {
 		
 		shiroFilterFactoryBean.setFilters(filters);
 		return shiroFilterFactoryBean;
+	}
+	
+	@Bean
+	@SuppressWarnings("rawtypes")
+	protected MyShiroSecurityLogic securityLogic() {
+		MyShiroSecurityLogic securityLogic = new MyShiroSecurityLogic();
+		return securityLogic;
 	}
 
 	/**
@@ -142,7 +161,16 @@ public class ShiroConfig {
 
 	@Bean
 	public SessionDAO sessionDAO() {
-		return new MemorySessionDAO();
+		MemorySessionDAO memorySessionDAO = new MemorySessionDAO() {
+			public Session readSession(Serializable sessionId) throws UnknownSessionException {
+		        Session s = doReadSession(sessionId);
+		        if (s == null) {
+		        	System.err.println("There is no session with id [" + sessionId + "]");
+		        }
+		        return s;
+		    }
+		};
+		return memorySessionDAO;
 	}
 
 	/**
@@ -160,11 +188,14 @@ public class ShiroConfig {
 
 	@Bean
 	public DefaultWebSessionManager sessionManager(SimpleCookie sessionIdCookie, SessionDAO sessionDAO) {
-		DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+		DefaultWebSessionManager sessionManager = new MySessionManager();
+		// 不用默认的JSESSIONID，当跳出SHIRO SERVLET时jetty容器会为JSESSIONID重新分配值导致登录会话丢失；
+		// 未解决！DefaultSessionManager.retrieveSession里报UnknownSessionException
+		// sessionIdCookie.setName("mysessionid");
 		sessionManager.setSessionIdCookie(sessionIdCookie);
 		sessionManager.setSessionIdCookieEnabled(true);
 		// 会话超时时间，单位：毫秒
-		sessionManager.setGlobalSessionTimeout(3600000);
+		sessionManager.setGlobalSessionTimeout(3600*1000);
 		sessionManager.setSessionDAO(sessionDAO);
 		sessionManager.setDeleteInvalidSessions(true);
 		sessionManager.setSessionValidationSchedulerEnabled(true);

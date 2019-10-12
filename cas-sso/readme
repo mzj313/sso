@@ -1,6 +1,28 @@
-http://localhost:8280/cas/login
+# cas-client:
+http://localhost:8281
+http://localhost:8280/cas/logout?service=http://localhost:8281/logout
+# cas-client-pac4j:
+http://localhost:8282
+http://localhost:8282/logout
+# cas-client-shiro:
+http://localhost:8283
+# cas-server:
+http://localhost:8280/cas
 http://localhost:8280/cas/login?service=http://localhost:8282
-
+http://localhost:8280/cas/logout
 
 deployerConfigContext.xml里面primaryAuthenticationHandler
 配置用户admin admin123
+
+TGT（Ticket Grangting Ticket）
+用户在CAS认证成功后，CAS生成cookie（叫TGC）写入浏览器，同时生成一个TGT对象，放入自己的缓存，TGT对象的ID就是cookie的值。
+当HTTP再次请求到来时，如果传过来的有CAS生成的cookie，则CAS以此cookie值为key查询缓存中有无TGT ，
+如果有的话，则说明用户之前登录过，如果没有，则用户需要重新登录。
+
+ST（Service Ticket）
+ST是CAS为用户签发的访问某一service的票据。用户访问service时，service发现用户没有ST，则要求用户去CAS获取ST。
+用户向CAS发出获取ST的请求，如果用户的请求中包含cookie，则CAS会以此cookie值为key查询缓存中有无TGT，
+如果存在TGT，则用此TGT签发一个ST，返回给用户。用户凭借ST去访问service，service拿ST去CAS验证，验证通过后，允许用户访问资源。
+
+InitialFlowSetupAction从请求的cookie中解析出TGC放到ticketGrantingTicketId，
+TicketGrantingTicketCheckAction根据ticketGrantingTicketId获取并校验TGT。
