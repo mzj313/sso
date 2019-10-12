@@ -9,40 +9,41 @@
 		this.context); 那么，子容器在初始化时，就能得到父容器的存在。子容器可以使用父容器的bean。 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:spring-config.xml</param-value>
+		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener
+		<listener-class>org.mzj.test.web.MyContextLoaderListener
 		</listener-class>
 	</listener>
 	
     <!-- 登出。 具体逻辑在SingleSignOutHandler.process中-->
+	<listener>
+	    <listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
+	</listener>
 	<filter>
 		<filter-name>CAS Single Sign Out Filter</filter-name>
 		<filter-class>org.jasig.cas.client.session.SingleSignOutFilter
 		</filter-class>
-		<init-param>
+		<!-- 可以使用全局的context-param -->
+		<!-- <init-param>
 			<param-name>casServerUrlPrefix</param-name>
 			<param-value>http://localhost:8280/cas</param-value>
-		</init-param>
+		</init-param> -->
 	</filter>
-	<listener>
-	    <listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
-	</listener>
 
 	<!-- 判断用户是否登录，如果没有登录重定向到cas服务器 -->
 	<filter>
 		<filter-name>CAS Authentication Filter</filter-name>
 		<filter-class>org.jasig.cas.client.authentication.AuthenticationFilter
 		</filter-class>
-		<init-param>
+		<!-- <init-param>
 			<param-name>casServerLoginUrl</param-name>
 			<param-value>http://localhost:8280/cas/login</param-value>
 		</init-param>
 		<init-param>
 			<param-name>serverName</param-name>
 			<param-value>http://localhost:8281</param-value>
-		</init-param>
+		</init-param> -->
 		<init-param>
 			<param-name>ignorePattern</param-name>
 			<param-value>/logout</param-value>
@@ -54,14 +55,14 @@
 		<filter-name>CAS Validation Filter</filter-name>
 		<filter-class>org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter
 		</filter-class>
-		<init-param>
+		<!-- <init-param>
 			<param-name>casServerUrlPrefix</param-name>
 			<param-value>http://localhost:8280/cas</param-value>
 		</init-param>
 		<init-param>
 			<param-name>serverName</param-name>
 			<param-value>http://localhost:8281</param-value>
-		</init-param>
+		</init-param> -->
 	</filter>
 
 	<!-- 该过滤器负责实现HttpServletRequest请求的包裹， 比如允许开发者通过HttpServletRequest的getRemoteUser()方法获得SSO登录用户的登录名，可选配置。 -->

@@ -1,4 +1,4 @@
-# cas-client:
+# cas-client支持使用springboot和jetty:run两种方式启动:
 http://localhost:8281
 http://localhost:8280/cas/logout?service=http://localhost:8281/logout
 # cas-client-pac4j:
