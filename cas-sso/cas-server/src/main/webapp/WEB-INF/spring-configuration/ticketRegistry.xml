@@ -13,14 +13,15 @@
     	Configuration for the default TicketRegistry which stores the tickets in-memory and cleans them out as specified intervals.
     </description>
        
-  <!-- Ticket Registry -->
-  <!--<bean id="ticketRegistry" class="org.jasig.cas.ticket.registry.DefaultTicketRegistry" />-->
+    <!-- Ticket Registry -->
+    <bean id="ticketRegistry" class="org.jasig.cas.ticket.registry.DefaultTicketRegistry" />
 
-    <bean id="ticketRegistry"
+    <!-- 把ticket存储到memcached中 -->
+    <!-- <bean id="ticketRegistry"
           class="org.jasig.cas.ticket.registry.MemCacheTicketRegistry"
           c:client-ref="memcachedClient"
           c:ticketGrantingTicketTimeOut="${tgt.maxTimeToLiveInSeconds}"
-          c:serviceTicketTimeOut="${st.timeToKillInSeconds}" />
+          c:serviceTicketTimeOut="${st.timeToKillInSeconds}" /> -->
 	
 	<!--Quartz -->
 	<!-- TICKET REGISTRY CLEANER -->

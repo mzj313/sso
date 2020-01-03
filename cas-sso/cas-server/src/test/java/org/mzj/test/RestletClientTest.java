@@ -1,4 +1,4 @@
-package com.github.tanxinzheng.cas.client;
+package org.mzj.test;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
@@ -26,8 +26,9 @@ public class RestletClientTest {
         notNull(password, "password must not be null");
         notNull(service, "service must not be null");
 
-        return getServiceTicket(server, getTicketGrantingTicket(server, username,
-                password), service);
+        String tgt = getTicketGrantingTicket(server, username, password);
+		String st = getServiceTicket(server, tgt, service);
+		return st;
     }
 
     private static String getServiceTicket(final String server,
